@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" role="img" aria-label="Iron Lotus Tattoo Studio logo">
+  <defs>
+    <linearGradient id="gold" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#f3dc8a"/>
+      <stop offset="0.5" stop-color="#d4af37"/>
+      <stop offset="1" stop-color="#9c7a1c"/>
+    </linearGradient>
+  </defs>
+  <circle cx="60" cy="60" r="56" fill="#0a0a0a" stroke="url(#gold)" stroke-width="3"/>
+  <circle cx="60" cy="60" r="50" fill="none" stroke="url(#gold)" stroke-width="1" stroke-dasharray="2 3"/>
+  <!-- tattoo needle / dagger -->
+  <path d="M60 10 L65 62 L60 70 L55 62 Z" fill="url(#gold)"/>
+  <path d="M60 14 L60 64" stroke="#0a0a0a" stroke-width="1"/>
+  <!-- lotus petals -->
+  <g fill="url(#gold)" stroke="#0a0a0a" stroke-width="1.5" stroke-linejoin="round">
+    <path d="M60 98 C42 92 30 78 28 58 C42 62 54 72 60 98 Z"/>
+    <path d="M60 98 C78 92 90 78 92 58 C78 62 66 72 60 98 Z"/>
+    <path d="M60 98 C46 88 40 72 46 50 C56 58 60 76 60 98 Z"/>
+    <path d="M60 98 C74 88 80 72 74 50 C64 58 60 76 60 98 Z"/>
+    <path d="M60 98 C52 86 52 70 60 56 C68 70 68 86 60 98 Z"/>
+  </g>
+  <path d="M30 100 Q60 112 90 100" fill="none" stroke="url(#gold)" stroke-width="2" stroke-linecap="round"/>
+</svg>

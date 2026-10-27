@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="  Iron Lotus Tattoo Studio manual payment instructions and order confirmation.">
+    <title>Manual Payment | Iron Lotus Tattoo Studio</title>
+    <link rel="icon" type="image/svg+xml" href="Image/iron-lotus-logo.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="manual-payment-page">
+  <main class="container py-4 py-lg-5">
+    <div class="manual-payment-shell mx-auto">
+      <header class="payment-page-header d-flex justify-content-between align-items-center gap-3 mb-4">
+        <a class="studio-brand" href="index.html"         aria-label="Iron Lotus Tattoo Studio home">
+                  <span class="royal-mark" aria-hidden="true"><img src="Image/iron-lotus-logo.svg" alt=""></span>
+                  <span class="brand-name"><span class="brand-royal">IRON</span><span class="brand-ink">LOTUS</span><small>TATTOO STUDIO</small></span>
+        </a>
+        <a href="index.html#booking" class="btn btn-outline-accent btn-sm"><i class="bi bi-arrow-left"></i> Back to site</a>
+      </header>
+
+      <section class="manual-payment-content studio-card p-4 p-md-5">
+        <p class="text-accent text-uppercase small fw-semibold mb-2"><i class="bi bi-shield-lock me-1"></i>Secure manual checkout</p>
+        <h1 class="h2 mb-2">You're one step away from your art</h1>
+        <p class="text-light mb-4">Thank you for choosing Iron Lotus. Paying is simple: send the amount below in crypto, then share your proof with us. A real member of our team reviews every payment personally, so your booking is in safe hands.</p>
+
+        <ol class="pay-steps mb-4" aria-label="Payment steps">
+          <li class="pay-step is-active"><span>1</span><div><strong>Review</strong><small>Check your order</small></div></li>
+          <li class="pay-step"><span>2</span><div><strong>Send</strong><small>Pay in crypto</small></div></li>
+          <li class="pay-step"><span>3</span><div><strong>Confirm</strong><small>Upload proof</small></div></li>
+        </ol>
+
+        <h2 class="pay-section-title"><span class="pay-num">1</span> Review your order</h2>
+        <div id="orderSummary" class="payment-order-summary mb-4" aria-live="polite">
+          <p class="mb-0">Loading your order…</p>
+        </div>
+        <div id="missingOrderNotice" class="alert alert-warning d-none" role="alert">
+          We couldn't find an order from this browser session. Return to the site and submit your booking or cart again.
+          <a href="index.html#booking" class="alert-link">Return to checkout</a>.
+        </div>
+
+        <form name="royal-ink-payment-evidence" method="POST" action="payment-success.html" enctype="multipart/form-data" data-netlify="true" data-netlify-honeypot="bot-field" id="paymentEvidenceForm">
+          <input type="hidden" name="form-name" value="royal-ink-payment-evidence">
+          <div class="visually-hidden" aria-hidden="true"><label>Leave this empty<input name="bot-field" tabindex="-1" autocomplete="off"></label></div>
+          <input type="hidden" name="customer-name" id="paymentCustomerName">
+          <input type="hidden" name="customer-email" id="paymentCustomerEmail">
+          <input type="hidden" name="customer-phone" id="paymentCustomerPhone">
+          <input type="hidden" name="order-type" id="paymentOrderType">
+          <input type="hidden" name="order-summary" id="paymentOrderSummary">
+          <input type="hidden" name="order-total-usd" id="paymentOrderTotal">
+          <input type="hidden" name="booking-details" id="paymentBookingDetails">
+          <input type="hidden" name="products-details" id="paymentProductsDetails">
+          <input type="hidden" name="payment-method" id="paymentMethodValue">
+          <input type="hidden" name="crypto-asset" id="paymentCryptoValue">
+          <input type="hidden" name="confirmation-channel" id="confirmationChannelValue">
+          <input type="hidden" name="order-reference" id="paymentOrderReference">
+
+          <input type="hidden" name="methodChoice" value="crypto">
+
+          <h2 class="pay-section-title"><span class="pay-num">2</span> Send your payment</h2>
+          <div class="pay-amount-banner mb-3">
+            <div><small>Amount to send today (USD value)</small><strong id="payAmountDisplay">—</strong></div>
+            <span class="pay-badge"><i class="bi bi-currency-bitcoin"></i> Crypto only</span>
+          </div>
+          <p class="pay-reference mb-3"><i class="bi bi-hash"></i> Your order reference: <strong id="payReferenceDisplay">—</strong> <span>Quote it if you ever contact us about this payment.</span></p>
+
+          <section id="cryptoInstructions" class="payment-instructions mb-4">
+            <ol class="pay-howto">
+              <li>Pick your coin below.</li>
+              <li>Scan the QR code, or copy the wallet address into your wallet app.</li>
+              <li>Send the USD value above in your chosen coin, on the matching network.</li>
+              <li>Save your transaction ID (TXID) or take a screenshot, and you're ready for step 3.</li>
+            </ol>
+            <label for="cryptoAsset" class="form-label">Choose coin and network</label>
+            <select class="form-select studio-input mb-3" id="cryptoAsset" name="crypto-choice">
+              <option value="BTC">Bitcoin network (BTC)</option>
+              <option value="ETH">Ethereum network (ETH)</option>
+              <option value="LTC">Litecoin network (LTC)</option>
+            </select>
+            <div class="crypto-wallet-panel">
+              <div class="crypto-qr-wrap"><img id="cryptoQrImage" src="Image/Bitcoin%20QR%20code.jpg" alt="Bitcoin payment QR code"></div>
+              <div class="crypto-wallet-info">
+                <p class="small text-light mb-1" id="cryptoNetworkName">Bitcoin network</p>
+                <label class="form-label" for="cryptoWalletAddress">Wallet address</label>
+                <div class="input-group">
+                  <input class="form-control studio-input" id="cryptoWalletAddress" type="text" readonly value="3DfMVLhNfUAQrhRSxy341KVsJnQpuDQx2o" aria-label="Bitcoin wallet address">
+                  <button type="button" class="btn btn-outline-accent" id="copyCryptoAddress" title="Copy wallet address" aria-label="Copy wallet address"><i class="bi bi-copy"></i></button>
+                </div>
+                <p class="pay-warning mt-2 mb-0"><i class="bi bi-exclamation-triangle-fill"></i> Send only the selected coin on its matching network. Transfers on a different network may be lost.</p>
+              </div>
+            </div>
+            <div class="pay-verify mt-3">
+              <i class="bi bi-patch-check"></i>
+              <div>
+                <strong>Verify before you send</strong>
+                <p class="mb-0">The address you're paying should start with <code id="addrStart">—</code> and end with <code id="addrEnd">—</code>. It must match both the QR code and the text above. We only ever accept payment to the addresses shown on this page.</p>
+              </div>
+            </div>
+            <p class="pay-tip mt-3 mb-0"><i class="bi bi-lightbulb"></i> Tip: send a small test amount first if you're new to crypto, and always double-check the first and last characters of the address.</p>
+          </section>
+
+          <h2 class="pay-section-title"><span class="pay-num">3</span> Confirm with your proof</h2>
+          <p class="text-light small mb-3">Once you've sent it, tell us here. It takes less than a minute and lets us secure your spot quickly.</p>
+          <div class="row g-3">
+            <div class="col-12">
+              <label for="transactionReference" class="form-label">Transaction ID (TXID)</label>
+              <input class="form-control studio-input" id="transactionReference" name="transaction-reference" type="text" maxlength="120" required placeholder="Paste your crypto transaction ID">
+              <div class="invalid-feedback">Enter your crypto transaction ID.</div>
+            </div>
+            <div class="col-12">
+              <label for="paymentReceipt" class="form-label">Payment receipt or screenshot</label>
+              <input class="form-control studio-input" id="paymentReceipt" name="payment-receipt" type="file" accept="image/*,.pdf" required>
+              <div class="form-text">A screenshot from your wallet or exchange works great. Please never include passwords, seed phrases or private keys.</div>
+              <div class="invalid-feedback">Upload a receipt or screenshot.</div>
+            </div>
+            <div class="col-12">
+              <label for="paymentNote" class="form-label">Note <span class="text-light fw-normal">(optional)</span></label>
+              <textarea class="form-control studio-input" id="paymentNote" name="customer-note" rows="3" maxlength="500" placeholder="Any detail that will help us match your payment?"></textarea>
+            </div>
+            <div class="col-12">
+              <label for="confirmationChannel" class="form-label">Preferred confirmation contact</label>
+              <select class="form-select studio-input" id="confirmationChannel" name="confirmation-channel-choice" required>
+                <option value="email" selected>Email</option>
+                <option value="sms">SMS / text message</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-check my-4">
+            <input class="form-check-input" type="checkbox" value="yes" id="paymentConfirmation" name="payment-sent" required>
+            <label class="form-check-label text-light" for="paymentConfirmation">I confirm that I have sent the exact amount shown above and that the payment details and receipt are accurate. I understand my appointment is validated after the deposit and payment evidence are verified.</label>
+            <div class="invalid-feedback">Confirm that you have sent the payment before submitting evidence.</div>
+          </div>
+          <div id="paymentFormError" class="alert alert-warning d-none" role="alert"></div>
+          <button type="submit" class="btn btn-accent btn-lg w-100" id="submitEvidenceButton">
+            <i class="bi bi-check2-circle me-2"></i>I've sent my payment &mdash; confirm
+          </button>
+        </form>
+
+        <section class="pay-safe mt-5" aria-labelledby="paySafeTitle">
+          <h2 id="paySafeTitle" class="pay-section-title mt-0"><i class="bi bi-shield-check text-accent"></i> Your payment, protected by clear promises</h2>
+
+          <h3 class="pay-sub">What happens after you pay</h3>
+          <ol class="pay-timeline">
+            <li><strong>You send &amp; confirm.</strong> You submit your transaction ID and proof, and we record it against your order reference.</li>
+            <li><strong>We verify it ourselves.</strong> A team member matches your transfer to our wallet and your order. Nothing is automated or guessed.</li>
+            <li><strong>We contact you.</strong> You hear from us by your chosen method (email or text) once it's verified.</li>
+            <li><strong>Your booking is confirmed.</strong> Your deposit is applied to your final session cost, and your time is reserved.</li>
+          </ol>
+
+          <h3 class="pay-sub">Our promises to you</h3>
+          <ul class="pay-promises">
+            <li><i class="bi bi-check-circle-fill"></i> We will <strong>never</strong> ask for your seed phrase, private key, wallet password or card details.</li>
+            <li><i class="bi bi-check-circle-fill"></i> We will <strong>never</strong> ask you to pay to a different address by message, call or social media. Only the addresses on this page are ours.</li>
+            <li><i class="bi bi-check-circle-fill"></i> Your deposit is <strong>deducted from your final session cost</strong>, so it's never an extra charge.</li>
+            <li><i class="bi bi-check-circle-fill"></i> We use your details only to process and confirm this order.</li>
+          </ul>
+
+          <h3 class="pay-sub">Good to know, honestly</h3>
+          <details class="pay-faq">
+            <summary>Why crypto, and is it safe?</summary>
+            <p>Crypto lets you pay quickly from anywhere without sharing bank or card details with us. The one thing to know is that blockchain transfers can't be reversed by a bank, which is why we ask you to double-check the address and network before sending, and why we verify every payment by hand.</p>
+          </details>
+          <details class="pay-faq">
+            <summary>What if I sent it on the wrong network or to a wrong address?</summary>
+            <p>Contact us right away at <a href="tel:+13028281552">+1 302 828 1552</a> with your order reference and TXID. We'll help where we can, but funds sent to an address that isn't ours can't be recovered by us, so please verify first.</p>
+          </details>
+          <details class="pay-faq">
+            <summary>What if I need to cancel or reschedule?</summary>
+            <p>Rescheduling needs at least 48 hours' notice. Cancellations within 48 hours forfeit the deposit. See the studio policies on our <a href="index.html#faq">FAQ</a> for the full details.</p>
+          </details>
+          <details class="pay-faq">
+            <summary>How do I know you received my payment?</summary>
+            <p>You'll see a confirmation page straight after submitting, and we'll message you personally once the transfer is verified. If you haven't heard from us, call or email us with your order reference.</p>
+          </details>
+          <details class="pay-faq">
+            <summary>I'm new to crypto. Can someone help?</summary>
+            <p>Absolutely. Call <a href="tel:+13028281552">+1 302 828 1552</a> and we'll walk you through it step by step. There are no silly questions.</p>
+          </details>
+        </section>
+
+        <div class="pay-trust mt-4">
+          <div><i class="bi bi-person-check"></i><strong>Reviewed by a person</strong><small>Every payment is checked by our team.</small></div>
+          <div><i class="bi bi-clock-history"></i><strong>Fast follow-up</strong><small>We contact you by your chosen method.</small></div>
+          <div><i class="bi bi-lock"></i><strong>Private &amp; secure</strong><small>No card details are ever collected.</small></div>
+        </div>
+        <p class="payment-review-note mt-4 mb-0"><i class="bi bi-heart text-accent me-1"></i>Your appointment is confirmed once your deposit is verified, and the sooner you pay, the sooner your preferred time is locked in. Need a hand? Call <a href="tel:+13028281552">+1 302 828 1552</a> and we'll walk you through it.</p>
+      </section>
+
+      <footer class="payment-page-footer text-center text-light small py-4">
+        <p class="mb-1"><a href="tel:+13028281552">+1 302 828 1552</a> · <a href="mailto:Royal.ink.costumerservice@gmail.com">Royal.ink.costumerservice@gmail.com</a></p>
+        <p class="mb-0">128 Ink Avenue, Studio City</p>
+      </footer>
+    </div>
+  </main>
+  <script src="payment.js"></script>
+</body>
+</html>
