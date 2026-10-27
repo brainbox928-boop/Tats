@@ -141,23 +141,49 @@ document.getElementById("copyCryptoAddress").addEventListener("click", async () 
   }
 });
 
-paymentForm.addEventListener("submit", (event) => {
+const MAX_UPLOAD_BYTES = 8 * 1024 * 1024;
+
+function showPaymentError(message) {
+  paymentError.textContent = message;
+  paymentError.classList.remove("d-none");
+}
+
+paymentForm.addEventListener("submit", async (event) => {
+  event.preventDefault();
+  paymentError.classList.add("d-none");
+
   if (!paymentOrder) {
-    event.preventDefault();
     document.getElementById("missingOrderNotice").classList.remove("d-none");
     return;
   }
 
   if (!paymentForm.checkValidity()) {
-    event.preventDefault();
     paymentForm.classList.add("was-validated");
     paymentForm.reportValidity();
     return;
   }
 
+  const receipt = document.getElementById("paymentReceipt").files[0];
+  if (receipt && receipt.size > MAX_UPLOAD_BYTES) {
+    showPaymentError("Your receipt is larger than 8 MB. Please upload a smaller screenshot or compressed image.");
+    return;
+  }
+
   setPaymentMethod();
-  document.getElementById("submitEvidenceButton").disabled = true;
-  document.getElementById("submitEvidenceButton").innerHTML = '<span class="spinner-border spinner-border-sm me-2" aria-hidden="true"></span>Submitting…';
+  const button = document.getElementById("submitEvidenceButton");
+  const originalLabel = button.innerHTML;
+  button.disabled = true;
+  button.innerHTML = '<span class="spinner-border spinner-border-sm me-2" aria-hidden="true"></span>Submitting…';
+
+  try {
+    const response = await fetch("/", { method: "POST", body: new FormData(paymentForm) });
+    if (!response.ok) throw new Error(`Status ${response.status}`);
+    window.location.href = paymentForm.getAttribute("action");
+  } catch (error) {
+    button.disabled = false;
+    button.innerHTML = originalLabel;
+    showPaymentError("We couldn't submit your payment evidence. Please check your connection and try again, or contact us with your order reference.");
+  }
 });
 
 renderPaymentOrder(paymentOrder);
